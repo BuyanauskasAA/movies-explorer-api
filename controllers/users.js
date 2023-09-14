@@ -4,7 +4,7 @@ const { BadRequestError, NotFoundError } = require('../errors');
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(new NotFoundError('Пользователь не найден!'))
-    .then((user) => res.end(user))
+    .then((user) => res.send(user))
     .catch(next);
 };
 
