@@ -1,5 +1,5 @@
 const Movie = require('../models/movie');
-const { BadRequestError, NotFoundError } = require('../errors');
+const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors');
 
 const getMovies = (req, res, next) => {
   Movie.find()
@@ -21,8 +21,14 @@ const saveMovie = (req, res, next) => {
 };
 
 const deleteMovie = (req, res, next) => {
-  Movie.findByIdAndRemove(req.params.movieId)
+  Movie.findById(req.params.movieId)
     .orFail(new NotFoundError('Фильм не найден!'))
+    .then((movie) => {
+      if (req.user._id !== movie.owner._id) {
+        throw new ForbiddenError('Фильм сохранен другим пользователем!');
+      }
+    })
+    .then(() => Movie.findByIdAndRemove(req.params.movieId))
     .then((movie) => res.send(movie))
     .catch(next);
 };
