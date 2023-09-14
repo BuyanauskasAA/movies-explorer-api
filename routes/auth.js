@@ -15,7 +15,7 @@ router.post(
 );
 
 router.post(
-  'signin',
+  '/signin',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().email().required(),
@@ -25,6 +25,6 @@ router.post(
   signIn,
 );
 
-router.post('signout', signOut);
+router.post('/signout', signOut);
 
 module.exports = router;
