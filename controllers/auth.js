@@ -11,7 +11,10 @@ const signUp = (req, res, next) => {
   bcrypt
     .hash(password, 10)
     .then((hash) => User.create({ ...req.body, password: hash }))
-    .then((user) => res.status(201).send(user))
+    .then((user) => {
+      const { _id, name, email } = user;
+      res.status(201).send({ _id, name, email });
+    })
     .catch((err) => {
       if (err.code === 11000) {
         next(new ConflictError('Пользователь уже зарегистрирован!'));
@@ -39,7 +42,7 @@ const signIn = (req, res, next) => {
           maxAge: 3600000,
           httpOnly: true,
         })
-        .send({ message: 'Вы авторизованы!' });
+        .send({ _id: user._id, name: user.name, email: user.email });
     })
     .catch(next);
 };
