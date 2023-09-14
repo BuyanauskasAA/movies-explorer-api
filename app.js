@@ -12,7 +12,7 @@ const rateLimiter = require('./utils/rate-limiter');
 const corsHandler = require('./middlewares/cors-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/moviesdb' } = process.env;
+const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/savedmoviesdb' } = process.env;
 
 mongoose
   .connect(DB_URL, {
