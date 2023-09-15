@@ -19,7 +19,7 @@ const signUp = (req, res, next) => {
       if (err.code === 11000) {
         next(new ConflictError('Пользователь уже зарегистрирован!'));
       } else if (err.name === 'ValidationError') {
-        next(new BadRequestError('Некорректные данные при регистрации пользователя!'));
+        next(new BadRequestError('Некорректные данные!'));
       } else {
         next(err);
       }
