@@ -3,7 +3,7 @@ const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors');
 
 const getMovies = (req, res, next) => {
   Movie.find()
-    .then((movies) => movies.filter((movie) => req.user._id === movie.owner._id))
+    .then((movies) => movies.filter((movie) => req.user._id === movie.owner.toString()))
     .then((movies) => res.send(movies))
     .catch(next);
 };
@@ -24,7 +24,7 @@ const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .orFail(new NotFoundError('Фильм не найден!'))
     .then((movie) => {
-      if (req.user._id !== movie.owner._id) {
+      if (req.user._id !== movie.owner.toString()) {
         throw new ForbiddenError('Фильм сохранен другим пользователем!');
       }
     })
