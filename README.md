@@ -8,4 +8,4 @@
 
 IP 158.160.122.192
 
-API link: https://api.diploma.buyanauskas.nomoredomainsicu.ru/
+API: https://api.diploma.buyanauskas.nomoredomainsicu.ru/
