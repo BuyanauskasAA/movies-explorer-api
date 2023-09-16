@@ -17,7 +17,7 @@ const signUp = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        next(new ConflictError('Пользователь уже зарегистрирован!'));
+        next(new ConflictError('Пользователь c таким Email уже зарегистрирован!'));
       } else if (err.name === 'ValidationError') {
         next(new BadRequestError('Некорректные данные!'));
       } else {

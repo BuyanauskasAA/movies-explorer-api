@@ -1,5 +1,5 @@
 const User = require('../models/user');
-const { BadRequestError, NotFoundError } = require('../errors');
+const { BadRequestError, ConflictError, NotFoundError } = require('../errors');
 
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -17,7 +17,9 @@ const updateUser = (req, res, next) => {
     .orFail(new NotFoundError('Пользователь не найден!'))
     .then((user) => res.send(user))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.code === 11000) {
+        next(new ConflictError('Пользователь с таким Email уже зарегистрирован!'));
+      } else if (err.name === 'ValidationError') {
         next(new BadRequestError('Некорректные данные!'));
       } else {
         next(err);
