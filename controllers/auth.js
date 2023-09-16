@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const messages = require('../utils/messages');
 const { ConflictError, BadRequestError } = require('../errors');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -17,9 +18,9 @@ const signUp = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        next(new ConflictError('Пользователь c таким Email уже зарегистрирован!'));
+        next(new ConflictError(messages.conflict));
       } else if (err.name === 'ValidationError') {
-        next(new BadRequestError('Некорректные данные!'));
+        next(new BadRequestError(messages.badRequest));
       } else {
         next(err);
       }
@@ -48,7 +49,7 @@ const signIn = (req, res, next) => {
 };
 
 const signOut = (req, res) => {
-  res.clearCookie('jwt').send({ message: 'Выход из аккаунта!' });
+  res.clearCookie('jwt').send({ message: messages.signOut });
 };
 
 module.exports = {

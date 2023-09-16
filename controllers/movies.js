@@ -1,4 +1,5 @@
 const Movie = require('../models/movie');
+const messages = require('../utils/messages');
 const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors');
 
 const getMovies = (req, res, next) => {
@@ -13,7 +14,7 @@ const saveMovie = (req, res, next) => {
     .then((movie) => res.status(201).send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Некорректные данные!'));
+        next(new BadRequestError(messages.badRequest));
       } else {
         next(err);
       }
@@ -22,10 +23,10 @@ const saveMovie = (req, res, next) => {
 
 const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
-    .orFail(new NotFoundError('Фильм не найден!'))
+    .orFail(new NotFoundError(messages.filmNotFound))
     .then((movie) => {
       if (req.user._id !== movie.owner.toString()) {
-        throw new ForbiddenError('Фильм сохранен другим пользователем!');
+        throw new ForbiddenError(messages.forbidden);
       }
 
       Movie.findByIdAndRemove(req.params.movieId);
