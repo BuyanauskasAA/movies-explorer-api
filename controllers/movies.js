@@ -27,8 +27,9 @@ const deleteMovie = (req, res, next) => {
       if (req.user._id !== movie.owner.toString()) {
         throw new ForbiddenError('Фильм сохранен другим пользователем!');
       }
+
+      Movie.findByIdAndRemove(req.params.movieId);
     })
-    .then(() => Movie.findByIdAndRemove(req.params.movieId))
     .then((movie) => res.send(movie))
     .catch(next);
 };
