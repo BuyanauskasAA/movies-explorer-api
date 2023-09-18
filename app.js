@@ -11,13 +11,12 @@ const errorHandler = require('./middlewares/error-handler');
 const rateLimiter = require('./utils/rate-limiter');
 const corsHandler = require('./middlewares/cors-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { mongodbURL, mongodbOptions } = require('./utils/mongodb-config');
 
-const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
+const { NODE_ENV, PORT = 3000, DB_URL } = process.env;
 
 mongoose
-  .connect(DB_URL, {
-    useNewUrlParser: true,
-  })
+  .connect(NODE_ENV === 'production' ? DB_URL : mongodbURL, mongodbOptions)
   .then(() => {
     console.log('Database connected');
   });
