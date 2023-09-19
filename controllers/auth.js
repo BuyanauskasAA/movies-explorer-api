@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const messages = require('../utils/messages');
+const statuses = require('../utils/statuses');
 const { ConflictError, BadRequestError } = require('../errors');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -14,7 +15,7 @@ const signUp = (req, res, next) => {
     .then((hash) => User.create({ ...req.body, password: hash }))
     .then((user) => {
       const { _id, name, email } = user;
-      res.status(201).send({ _id, name, email });
+      res.status(statuses.created).send({ _id, name, email });
     })
     .catch((err) => {
       if (err.code === 11000) {

@@ -1,5 +1,6 @@
 const Movie = require('../models/movie');
 const messages = require('../utils/messages');
+const statuses = require('../utils/statuses');
 const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors');
 
 const getMovies = (req, res, next) => {
@@ -11,7 +12,7 @@ const getMovies = (req, res, next) => {
 
 const saveMovie = (req, res, next) => {
   Movie.create({ ...req.body, owner: req.user._id })
-    .then((movie) => res.status(201).send(movie))
+    .then((movie) => res.status(statuses.created).send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError(messages.badRequest));
