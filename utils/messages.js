@@ -9,4 +9,6 @@ module.exports = {
   wrongEmailOrPassword: 'Неправильные почта или пароль!',
   serverError: 'На сервере произошла ошибка!',
   signOut: 'Выход из аккаунта!',
+  databaseUp: 'Database connected!',
+  serverUp: (port) => `Server is running on port ${port}`,
 };

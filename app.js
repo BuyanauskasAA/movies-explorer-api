@@ -12,13 +12,14 @@ const rateLimiter = require('./utils/rate-limiter');
 const corsHandler = require('./middlewares/cors-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { mongodbURL, mongodbOptions } = require('./utils/mongodb-config');
+const messages = require('./utils/messages');
 
 const { NODE_ENV, PORT = 3000, DB_URL } = process.env;
 
 mongoose
   .connect(NODE_ENV === 'production' ? DB_URL : mongodbURL, mongodbOptions)
   .then(() => {
-    console.log('Database connected');
+    console.log(messages.databaseUp);
   });
 
 const app = express();
@@ -35,5 +36,5 @@ app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(messages.serverUp(PORT));
 });
