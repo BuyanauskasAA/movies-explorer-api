@@ -29,7 +29,7 @@ const deleteMovie = (req, res, next) => {
         throw new ForbiddenError(messages.forbidden);
       }
 
-      Movie.findByIdAndRemove(req.params.movieId);
+      return Movie.findByIdAndRemove(req.params.movieId);
     })
     .then((movie) => res.send(movie))
     .catch(next);
