@@ -14,6 +14,20 @@
 ```sh
 npm install
 ```
+## Запуск проекта
+
+- Запуск сервера
+
+```sh
+npm run start
+```
+
+- Запуск сервера с hot-reload
+
+```sh
+npm run dev
+```
+
 ## Технологии
 
 1. JavaScript
