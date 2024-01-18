@@ -16,5 +16,10 @@ npm install
 ```
 ## Технологии
 
-1. Express.js
-2. MongoDB
+1. JavaScript
+2. Express.js
+3. Node.js
+4. MongoDB
+5. Nginx
+6. API
+7. JWT
