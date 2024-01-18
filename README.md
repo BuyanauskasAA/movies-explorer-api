@@ -1,11 +1,18 @@
 # movies-explorer-api
 
-Бэкенд для приложения `Movies-explorer` со следующими возможностями: авторизация и регистрация пользователей, операции с фильмами и пользователями.
+Бэкенд для приложения `Movies-explorer` со следующими возможностями:
 
-Адрес репозитория: https://github.com/BuyanauskasAA/movies-explorer-api
+- авторизация пользователей
+- регистрация пользователей
+- операции с фильмами
+- операции с пользователями
 
-## Ссылки на проект
+## Setup
 
-IP 158.160.122.192
+```sh
+npm install
+```
+## Технологии
 
-API: https://api.diploma.buyanauskas.nomoredomainsicu.ru/
+1. Express.js
+2. MongoDB
